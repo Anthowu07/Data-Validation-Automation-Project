@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Validation Script",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/validate_data.py",
+      "console": "integratedTerminal"
+    }
+  ]
+}
