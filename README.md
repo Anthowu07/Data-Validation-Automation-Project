@@ -5,7 +5,11 @@ This project simulates data validation tasks of a QA Data Engineer using Python 
 ## Features
 - Checks for NULL values in `users`
 - Validates transaction statuses
+- Checks that each transaction has an associated user
 - Reports are saved to `qa_reports/`
+
+## Logging
+All validation reports and logs will be output to the qa_reports/ folder. This folder is ignored in Git, as it contains auto-generated files.
 
 ## Setup
 ```bash

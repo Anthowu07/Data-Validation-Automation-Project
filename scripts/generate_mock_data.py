@@ -36,7 +36,7 @@ CREATE TABLE transactions (
 # Insert mock users
 users = [
     (1, "Alice", "alice@example.com"),         # Valid
-    (2, "Bob", None),                          # ❌ Null email
+    (2, "Anthony", None),                          # ❌ Null email
     (3, "Charlie", "charlie@example.com")      # Valid
 ]
 cursor.executemany("INSERT INTO users (user_id, name, email) VALUES (?, ?, ?)", users)

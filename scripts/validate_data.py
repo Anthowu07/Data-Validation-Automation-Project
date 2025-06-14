@@ -2,9 +2,17 @@ import sqlite3
 import pandas as pd
 import os
 import sys
+import logging
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from scripts.validators import validate_null_emails, validate_invalid_statuses, validate_user_links
+
+logging.basicConfig(
+    filename="qa_reports/logs.txt",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "../db/qa_project.db")
@@ -19,19 +27,18 @@ txn_df = pd.read_sql_query("SELECT * FROM transactions", conn)
 null_emails = validate_null_emails(users_df)
 if not null_emails.empty:
     null_emails.to_csv(os.path.join(REPORTS_DIR, "null_emails.csv"), index=False)
-    print("Found users with missing email addresses.")
+    logging.info("Check completed: Null emails")
 
 # Check for invalid transaction statuses
 invalid_statuses = validate_invalid_statuses(txn_df)
 if not invalid_statuses.empty:
     invalid_statuses.to_csv(os.path.join(REPORTS_DIR, "invalid_transaction_statuses.csv"), index=False)
-    print("Found invalid transaction statuses.")
+    logging.info("Check completed: Invalid statuses")
     
 # Checks for Transactions with Unknown Users
 invalid_user_links = validate_user_links(txn_df, users_df)
 if not invalid_user_links.empty:
     invalid_user_links.to_csv(os.path.join(REPORTS_DIR, "transactions_with_unknow_users.csv"), index=False)
-    print("Found transactions linked to unknown users.")
+    logging.info("Check completed: Invalid user links")
 
 conn.close()
-print("Validation checks completed.")
