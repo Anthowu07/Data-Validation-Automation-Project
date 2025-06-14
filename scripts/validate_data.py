@@ -1,6 +1,9 @@
 import sqlite3
 import pandas as pd
 import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from scripts.validators import validate_null_emails, validate_invalid_statuses, validate_user_links
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
